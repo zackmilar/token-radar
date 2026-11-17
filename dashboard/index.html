@@ -3,12 +3,78 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Token Radar: pre-token protocols ranked by implied value</title>
+<title>Token Radar — pre-token protocols ranked by implied launch value</title>
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
-<a class="skip" href="#board">Skip to the board</a>
-<main id="board" tabindex="-1" aria-busy="true"></main>
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="kicker">Token Radar · snapshot 2026-11-14</p>
+    <h1>Which pre-token protocol is worth farming next?</h1>
+    <p class="lede">Every protocol below records no token yet. Each one is ranked by
+    what its launch would be worth — TVL times the multiple its category's
+    traded peers actually carry — and each one carries a concrete plan for
+    farming it. Nothing here predicts whether or when a token launches.</p>
+    <dl class="facts" id="facts"></dl>
+  </div>
+</header>
+<main class="page">
+  <section class="spotlight" id="spotlight" aria-label="Top three"></section>
+  <section class="controls" aria-label="Board controls">
+    <label class="search">Search
+      <input id="query" type="search" placeholder="Protocol, slug or chain…" autocomplete="off">
+    </label>
+    <label class="picker">Category
+      <select id="category"><option value="">All categories</option></select>
+    </label>
+    <div class="chips" role="group" aria-label="Scope">
+      <button type="button" data-scope="all" class="chip is-on">Whole board</button>
+      <button type="button" data-scope="watchlist" class="chip">Watchlist</button>
+      <button type="button" data-scope="early" class="chip">Early radar</button>
+    </div>
+    <div class="tabs" role="group" aria-label="Token status">
+      <button type="button" data-tab="pre" class="tab is-on">Pre-token</button>
+      <button type="button" data-tab="live" class="tab">Live token</button>
+    </div>
+  </section>
+  <p class="count" id="count" aria-live="polite"></p>
+  <div class="table-wrap">
+    <table id="board">
+      <thead>
+        <tr>
+          <th data-sort="rank">Rank</th>
+          <th data-sort="name">Protocol</th>
+          <th data-sort="category">Category</th>
+          <th data-sort="tvl_usd">TVL</th>
+          <th data-sort="change_7d">7d</th>
+          <th data-sort="age_days">Age</th>
+          <th data-sort="implied_value_usd">Implied value</th>
+          <th data-sort="ratio">Ratio</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <table id="live" hidden>
+      <thead>
+        <tr>
+          <th>Protocol</th>
+          <th>Category</th>
+          <th>TVL</th>
+          <th>Market cap</th>
+          <th>7d</th>
+        </tr>
+      </thead>
+      <tbody id="live-rows"></tbody>
+    </table>
+  </div>
+  <section class="model" id="model" aria-label="How the value is worked out"></section>
+  <p class="fineprint">Implied values are this radar's own claim, built from the
+  sealed snapshot alone — never a promise about a launch. Gas figures in the
+  farm plans are stated estimates for the protocol's home chain, not measured
+  fees. A protocol "records no token" in the snapshot; that is the record,
+  not proof it has none.</p>
+</main>
+<dialog id="detail" class="detail"></dialog>
 <script src="../data.js"></script>
 <script src="app.js"></script>
 </body>
